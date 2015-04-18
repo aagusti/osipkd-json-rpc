@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/static/img/favicon.png">
+
+    <title tal:content="request.title" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="/deform_static/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/deform_static/css/form.css" rel="stylesheet"/>
+    
+    <!-- Custom styles for this template -->
+    <link href="/static/css/signin.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      
+      <div tal:content="structure form"/>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="/deform_static/scripts/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/deform_static/scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/deform_static/scripts/deform.js"></script>
+  </body>
+</html>

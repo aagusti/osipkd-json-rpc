@@ -1,0 +1,6 @@
+<html metal:use-macro="load: ../base.pt">
+<div metal:fill-slot="content">
+<h1>Edit User</h1>
+<div tal:content="structure form"/>
+</div>
+</html>

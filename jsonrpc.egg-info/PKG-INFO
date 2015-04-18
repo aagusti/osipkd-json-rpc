@@ -1,0 +1,28 @@
+Metadata-Version: 1.1
+Name: jsonrpc
+Version: 0.0
+Summary: jsonrpc
+Home-page: UNKNOWN
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: jsonrpc README
+        
+        For create Ziggurat tables run:
+        
+          ~/env/bin/initialize_jsonrpc_db development.ini 
+          
+        
+        
+        
+        0.0
+        ---
+        
+        - Initial version
+        
+Keywords: web pyramid pylons
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Framework :: Pylons
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application

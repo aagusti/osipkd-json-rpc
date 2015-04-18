@@ -1,0 +1,37 @@
+<html metal:use-macro="load: ../base.pt">
+
+<div metal:fill-slot="content">
+<h1>User</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>User Name</th>
+            <th>Status</th>
+            <th>Last Login</th>
+            <th>Registered Date</th>
+            <th colspan="2"/>
+        </tr>
+    </thead>
+    <tbody>
+        <tr tal:repeat="row rows">
+            <td>${row.id}</td>
+            <td>${row.email}</td>
+            <td>${row.user_name}</td>
+            <td tal:condition="row.status">Active</td>
+            <td tal:condition="not row.status">Inactive</td>
+            <td>${row.last_login_date and row.last_login_date_tz().strftime('%d-%m-%Y %H:%M:%S %z')}</td>
+            <td>${row.registered_date and row.registered_date_tz().strftime('%d-%m-%Y %H:%M:%S %z')}</td>
+            <td><a href="/user/${row.id}/edit">Edit</td>
+            <td tal:condition="row.id > 1 and row.id != request.user.id"><a href="/user/${row.id}/delete">Delete</td>
+            <td tal:condition="row.id <= 1">System</td>
+            <td tal:condition="row.id > 1 and row.id == request.user.id">You</td>
+        </tr>
+    </tbody>
+</table>
+<a href="/user/add" class="btn">Add</a>
+</div>
+
+</html>

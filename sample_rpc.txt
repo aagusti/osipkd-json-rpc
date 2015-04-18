@@ -1,0 +1,28 @@
+{
+  "jsonrpc": "2.0",
+  "method": "get_profile",
+  "params": ["6110010001001000102005"],
+  "id":1
+}
+
+{
+  "jsonrpc": "2.0",
+  "method": "get_profiles",
+  "params": ["2005-08-08"],
+  "id":1
+}
+
+{
+  "jsonrpc": "2.0",
+  "method": "get_trx",
+  "params": ["6110010001002004602005"],
+  "id":1
+}
+
+
+{
+  "jsonrpc": "2.0",
+  "method": "get_trxs",
+  "params": ["2005-08-08"],
+  "id":1
+}

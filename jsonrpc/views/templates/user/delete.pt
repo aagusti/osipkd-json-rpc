@@ -1,0 +1,16 @@
+<html metal:use-macro="load: ../base.pt">
+<div metal:fill-slot="content">
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Warning</h3>
+    </div>
+    <div class="panel-body">
+        Delete user ID #${row.id} ${row.email} ?
+    </div>
+</div>
+
+<div tal:content="structure form"/>
+
+</div>
+</html>
