@@ -27,10 +27,6 @@ def test_ipbb(nop):
               "params": [nop],
               "id":1
             }
-    print key
-    print value
-    print encodedSignature
-    
     
     signature = hmac.new(key, msg=value, digestmod=hashlib.sha256).digest() 
     

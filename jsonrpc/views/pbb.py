@@ -4,7 +4,6 @@ from types import (
     FloatType,
     IntType,
     )
-from hashlib import md5
 from sqlalchemy import (
     func,
     Table,
@@ -13,10 +12,13 @@ from sqlalchemy import (
     Float,
     DateTime,
     )
+    
 from sqlalchemy.sql.expression import text 
 from pyramid.view import view_config
 from pyramid_xmlrpc import XMLRPCView
 from pyramid_rpc.jsonrpc import jsonrpc_method
+from hashlib import md5
+
 from ..models import (
     DBSession,
     PbbDBSession,
@@ -24,6 +26,7 @@ from ..models import (
     PbbBase,
     CommonModel,
     )
+    
 from ..tools import (
     dict_to_simple_value,
     date_from_str,
@@ -66,7 +69,7 @@ class PbbInvoice(PbbORM):
                 self.cls.tgl_terbit_sppt==awal)
         return PbbORM.get_count(self, q)
 
-    def get_rows(self, awal, offset=0):
+    def get_rows(self, awal, offset=-1):
         q = PbbDBSession.query(self.cls).filter(
                 self.cls.tgl_terbit_sppt == awal)
         q = q.order_by('kd_propinsi', 'kd_dati2', 'kd_kecamatan', 'kd_kelurahan',
@@ -200,13 +203,12 @@ def get_profile_view(request, nop):
     return r
      
 @jsonrpc_method(endpoint='pbb')
-def get_profiles(self, tanggal):
-    resp = auth_from_rpc(params)
+def get_profiles(request, tanggal):
+    resp = auth_from_rpc(request)
     if resp['code'] != 0:
         return resp    
     
     awal = date_from_str(tanggal)
-    
     inv = PbbInvoice()
     row_count, page_count = inv.get_count(awal)
     if not row_count:
@@ -221,8 +223,9 @@ def get_profiles(self, tanggal):
         vals = row.to_dict()
         vals = dict_to_simple_value(vals)
         trxs.append(vals)
+    
     r['rows'] = trxs
-    return r #check_offset(r, offset, page_count)
+    return r 
 
 @jsonrpc_method(endpoint='pbb')    
 def get_trx(request, nop):
@@ -234,9 +237,10 @@ def get_trx(request, nop):
     invoice_id.set_raw(nop.strip())
     pay = PbbPayment()
     rows = pay.get_profile(invoice_id['Propinsi'], invoice_id['Kabupaten'],
-            invoice_id['Kecamatan'], invoice_id['Kelurahan'],
-            invoice_id['Blok'], invoice_id['Urut'], invoice_id['Jenis'],
-            invoice_id['Tahun Pajak'])
+              invoice_id['Kecamatan'], invoice_id['Kelurahan'],
+              invoice_id['Blok'], invoice_id['Urut'], invoice_id['Jenis'],
+              invoice_id['Tahun Pajak'])
+            
     if not rows:
         return dict(code=CODE_NOT_FOUND,
                     message='NOP {nop} tidak ada'.format(nop=nop))
@@ -263,7 +267,7 @@ def get_trxs(request, tanggal):
         msg = 'Tidak ada pembayaran di tanggal {awal}'
         msg = msg.format(awal=tanggal)
         return dict(code=CODE_NOT_FOUND, message=msg)
-    #offset = get_offset(params)
+
     rows = pay.get_rows(tanggal)
     r = dict(code=0, message='OK')
     trxs = []
@@ -271,8 +275,9 @@ def get_trxs(request, tanggal):
         vals = row.to_dict()
         vals = dict_to_simple_value(vals)
         trxs.append(vals)
+
     r['rows'] = trxs
-    return r #check_offset(r, offset, page_count)
+    return r 
     
 @jsonrpc_method(endpoint='pbb')
 def get_ipbb(request, nop):
@@ -290,13 +295,16 @@ def get_ipbb(request, nop):
     if not row:
         return dict(code=CODE_NOT_FOUND,
                     message='NOP {nop} tidak ada'.format(nop=nop))
+                    
     r = dict(code=0, message='OK')
     vals = row.to_dict()
     vals = dict_to_simple_value(vals)
+    
     r2 = PbbDop()
     r1 = r2.get_row(invoice_id['Propinsi'], invoice_id['Kabupaten'],
             invoice_id['Kecamatan'], invoice_id['Kelurahan'],
             invoice_id['Blok'], invoice_id['Urut'], invoice_id['Jenis'])
+            
     vals['jalan_op']=r1 and r1.jalan_op  or ""
     vals['blok_kav_no_op']=r1 and r1.blok_kav_no_op or ""
     vals['rw_op']=r and r1.rw_op or ""

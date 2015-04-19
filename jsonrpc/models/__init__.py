@@ -162,6 +162,9 @@ class User(UserMixin, BaseModel, CommonModel, Base):
     registered_date = Column(DateTime(timezone=True),
                              nullable=False,
                              default=datetime.utcnow)
+    rpc_key = Column(String,
+                     nullable=False,
+                     default='default')
 
     def _get_password(self):
         return self._password

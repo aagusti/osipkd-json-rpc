@@ -26,3 +26,5 @@
   "params": ["2005-08-08"],
   "id":1
 }
+
+Hash-based message authentication code

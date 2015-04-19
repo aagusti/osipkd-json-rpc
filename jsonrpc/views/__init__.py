@@ -179,7 +179,7 @@ class BaseORM(object): # abstract
             page_count += 1
         return r.jml, page_count
 
-    def get_rows(self, q, offset):
+    def get_rows(self, q, offset=-1):
         if offset < 0:
             return q
         return q.offset(offset).limit(LIMIT)
