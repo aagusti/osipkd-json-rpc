@@ -35,7 +35,7 @@ fixtures = [
     ] 
 
 SQL_TABLE = """
-SELECT c.oid, n.nspname, c.relname
+SELECT c.oid
   FROM pg_catalog.pg_class c
   LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
   WHERE c.relname = :table_name
@@ -44,7 +44,7 @@ SELECT c.oid, n.nspname, c.relname
 """
 
 SQL_TABLE_SCHEMA = """
-SELECT c.oid, n.nspname, c.relname
+SELECT c.oid
   FROM pg_catalog.pg_class c
   LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
   WHERE c.relname = :table_name
